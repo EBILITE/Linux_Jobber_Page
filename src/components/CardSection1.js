@@ -1,15 +1,120 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { GrStatusGood } from "react-icons/gr";
 import { IoIosArrowDroprightCircle } from "react-icons/io";
+import Reload from "../assets/Reload.svg";
+import Bad from "../assets/BadMark.svg";
 
 const CardSection1 = () => {
   const [values, setValues] = useState({
-    isStudent: false,
-    isGraduate: false,
-    isPostGarduate: false,
+    isStudent: true,
+    isGraduate: true,
+    isGraduateYesorNo: true,
+    isGraduateText: true,
+    isGraduateButton: true,
+    isGraduateInput: false,
+
     isCompleted: false,
+    isYesorNo: false,
+    isMoreQuestion: false,
+    // =======================
+    isPostGraduate: true,
+    isPgText: true,
+    isPgButton: true,
+    isPgSecQuesCon: false,
+    isPgSecQuesInput: true,
+    isPgSecQuesBtn: false,
+    isPostGraduate2: true,
+    isPgText2: true,
   });
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  };
+
+  const handleYes = () => {
+    setValues({
+      ...values,
+      isStudent: false,
+      isYesorNo: true,
+      isMoreQuestion: true,
+    });
+  };
+
+  const handleBack = () => {
+    setValues({
+      ...values,
+      isStudent: true,
+      isYesorNo: false,
+      isMoreQuestion: false,
+    });
+  };
+
+  const handleNo = () => {
+    setValues({ ...values, isStudent: false, isYesorNo: false });
+  };
+
+  const handleGraduteYes = () => {
+    setValues({
+      ...values,
+      isGraduateText: false,
+      isGraduateButton: false,
+      isGraduateInput: true,
+      isGraduateYesorNo: true,
+    });
+  };
+
+  const handleGraduteBack = () => {
+    setValues({
+      ...values,
+      isGraduateText: true,
+      isGraduateButton: true,
+      isGraduateInput: false,
+    });
+  };
+
+  const handleGraduateNo = () => {
+    setValues({
+      ...values,
+      isGraduateText: false,
+      isGraduateButton: false,
+      isGraduateInput: false,
+      isGraduateYesorNo: false,
+    });
+  };
+
+  const handlePgYes = () => {
+    setValues({
+      ...values,
+      isPgText: false,
+      isPostGraduate: true,
+      isPgButton: false,
+      isPgSecQuesCon: true,
+      isPgSecQuesBtn: true,
+    });
+  };
+  const handlePgNo = () => {
+    setValues({
+      ...values,
+      isPgText: false,
+      isPostGraduate: false,
+      isPgButton: false,
+      isPgSecQuesCon: false,
+      isPgSecQuesBtn: false,
+    });
+  };
+  const handlePgBack = () => {
+    setValues({
+      ...values,
+      isPgText: true,
+      isPostGraduate: true,
+      isPgButton: true,
+      isPgSecQuesCon: false,
+      isPgSecQuesBtn: false,
+    });
+  };
+  // const handlePgSecYes = () => {};
+  // const handlePgSecNo = () => {};
   return (
     <Wrapper>
       <div className="Card-Container">
@@ -17,7 +122,7 @@ const CardSection1 = () => {
           <GrStatusGood />
         </p>
         <div className="FormCard">
-          <form>
+          <form onSubmit={handleSubmit}>
             {/* =========================== 1 ============================= */}
             <div className="form-1 form">
               <span>1. </span>
@@ -43,21 +148,38 @@ const CardSection1 = () => {
                   <label htmlFor="student" className="form-label">
                     Are You a Student?
                   </label>
-                  {!values.isStudent && <p>Yes</p>}
+                  {values.isStudent ? (
+                    ""
+                  ) : values.isYesorNo ? (
+                    <p>Yes</p>
+                  ) : (
+                    <div className="Bad">
+                      <img src={Bad} alt="" onClick={handleBack} />
+                      <p>No</p>
+                    </div>
+                  )}
                 </div>
-
-                {values.isStudent ? (
+                {values.isStudent && (
                   <div className="btn-flex">
-                    <button className="btn">Yes</button>
-                    <button className="btn">No</button>
+                    <button type="button" className="btn" onClick={handleYes}>
+                      Yes
+                    </button>
+                    <button type="button" className="btn" onClick={handleNo}>
+                      No
+                    </button>
                   </div>
-                ) : (
+                )}
+
+                {values.isMoreQuestion && (
                   <div className="input-flex">
                     <input type="text" placeholder="Course of Study" />
                     <input
                       type="text"
                       placeholder="Expected Year of Graduation"
                     />
+                    <button type="button" onClick={handleBack}>
+                      <img src={Reload} alt="" />
+                    </button>
                   </div>
                 )}
               </div>
@@ -72,17 +194,33 @@ const CardSection1 = () => {
                   <label htmlFor="Graduate" className="form-label">
                     Did You Graduate?
                   </label>
-                  {!values.isGraduate && <p>Yes</p>}
+                  {values.isGraduateText ? (
+                    ""
+                  ) : values.isGraduateYesorNo ? (
+                    <p>Yes</p>
+                  ) : (
+                    <div className="Bad">
+                      <img src={Bad} alt="" onClick={handleGraduteBack} />
+                      <p>No</p>
+                    </div>
+                  )}
                 </div>
-
-                {values.isGraduate ? (
+                {values.isGraduateButton && (
                   <div className="btn-flex">
-                    <button className="btn">Yes</button>
-                    <button className="btn">No</button>
+                    <button className="btn" onClick={handleGraduteYes}>
+                      Yes
+                    </button>
+                    <button className="btn" onClick={handleGraduateNo}>
+                      No
+                    </button>
                   </div>
-                ) : (
-                  <div>
+                )}
+                {values.isGraduateInput && (
+                  <div className="input-flex">
                     <input type="text" placeholder="Current Occupation" />
+                    <button onClick={handleGraduteBack}>
+                      <img src={Reload} alt="" />
+                    </button>
                   </div>
                 )}
               </div>
@@ -96,27 +234,53 @@ const CardSection1 = () => {
                   <label htmlFor="Post-Graduate" className="form-label">
                     Does your country require post-graduation service?
                   </label>
-                  {!values.isPostGarduate && <p>Yes</p>}
+                  {values.isPgText ? (
+                    ""
+                  ) : values.isPostGraduate ? (
+                    <p>Yes</p>
+                  ) : (
+                    <div className="Bad">
+                      <img src={Bad} alt="" onClick={handlePgBack} />
+                      <p>No</p>
+                    </div>
+                  )}
                 </div>
 
-                {values.isPostGarduate ? (
+                {values.isPgButton && (
                   <div className="btn-flex">
-                    <button className="btn">Yes</button>
-                    <button className="btn">No</button>
+                    <button className="btn" onClick={handlePgYes}>
+                      Yes
+                    </button>
+                    <button className="btn" onClick={handlePgNo}>
+                      No
+                    </button>
                   </div>
-                ) : (
-                  <div className="comp">
+                )}
+
+                <div className="comp">
+                  {values.isPgSecQuesCon && (
                     <div className="label">
                       <label className="form-label">Have You Completed?</label>
-                      {values.isCompleted && <p>Yes</p>}
+                      {values.isPgText2 ? (
+                        ""
+                      ) : values.isPostGraduate2 ? (
+                        <p>Yes</p>
+                      ) : (
+                        <div className="Bad">
+                          <img src={Bad} alt="" />
+                          <p>No</p>
+                        </div>
+                      )}
                     </div>
-                    {/* <br></br> */}
+                  )}
+
+                  {values.isPgSecQuesBtn && (
                     <div className="btn-flex">
                       <button className="btn">Yes</button>
                       <button className="btn">No</button>
                     </div>
-                  </div>
-                )}
+                  )}
+                </div>
               </div>
             </div>
           </form>
@@ -134,7 +298,7 @@ export default CardSection1;
 
 const Wrapper = styled.div`
   /* border: 2px solid green; */
-  width: 40%;
+  width: 33rem;
   background-color: white;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   border-radius: 10px;
@@ -169,6 +333,10 @@ const Wrapper = styled.div`
     width: 60%;
     display: flex;
     gap: 1rem;
+    button {
+      border-style: none;
+      background: transparent;
+    }
   }
   .form {
     /* border: 2px solid blue; */
@@ -211,10 +379,17 @@ const Wrapper = styled.div`
     color: white;
     display: flex;
     align-items: center;
-    gap: .5rem;
-    svg{
+    gap: 0.5rem;
+    svg {
       font-size: 22px;
-      color: white
+      color: white;
+    }
+  }
+  .Bad {
+    display: flex;
+    gap: 0.7rem;
+    p {
+      color: #acb7eb;
     }
   }
 `;

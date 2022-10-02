@@ -1,12 +1,17 @@
 // import Navbar from "./components/Navbar/Navbar";
-import { Navbar } from './components';
+import { CardSection1, Navbar } from './components';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import {ProfilePage} from './Pages'
 function App() {
   return (
-    <div className="App">
+    <BrowserRouter>
       <Navbar />
-      <ProfilePage />
-    </div>
+      <Routes>
+        <Route path="/" element={<ProfilePage />}>
+          <Route index element={<CardSection1 />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
 

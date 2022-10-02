@@ -1,13 +1,16 @@
 import React from "react";
-import { PhotoSection, CardSection1 } from "../components";
+import { PhotoSection } from "../components";
 import styled from "styled-components";
+import { Outlet } from "react-router-dom";
 
 const ProfilePage = () => {
   return (
     <Wrapper>
       <PhotoSection />
-      <CardSection1 />
-      {/* <div></div> */}
+      {/* <CardSection1 /> */}
+      <div>
+        <Outlet />
+      </div>
     </Wrapper>
   );
 };
