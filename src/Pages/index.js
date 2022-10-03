@@ -1,3 +1,5 @@
 import ProfilePage from './ProfilePage'
+import Slider from './Slider'
+import Course from './CoursePage'
 
-export {ProfilePage}
+export {ProfilePage, Slider, Course}

@@ -4,6 +4,7 @@ import { GrStatusGood } from "react-icons/gr";
 import { IoIosArrowDroprightCircle } from "react-icons/io";
 import Reload from "../assets/Reload.svg";
 import Bad from "../assets/BadMark.svg";
+import { useNavigate } from "react-router-dom";
 
 const CardSection1 = () => {
   const [values, setValues] = useState({
@@ -115,6 +116,11 @@ const CardSection1 = () => {
   };
   // const handlePgSecYes = () => {};
   // const handlePgSecNo = () => {};
+
+  const navigate = useNavigate();
+  const handleSliderNavigate = () => {
+    navigate('/slider')
+  }
   return (
     <Wrapper>
       <div className="Card-Container">
@@ -286,7 +292,7 @@ const CardSection1 = () => {
           </form>
         </div>
       </div>
-      <button className="next">
+      <button className="next" onClick={handleSliderNavigate}>
         {" "}
         <p>next step</p> <IoIosArrowDroprightCircle />
       </button>
